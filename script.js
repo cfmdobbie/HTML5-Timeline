@@ -48,10 +48,22 @@ function createTimeline(data) {
   }
 }
 
+// Make a string HTML-safe
+function escapeHtml(unsafe) {
+  var safe = unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+  return safe;
+}
+
 // Entry point, called by button
 function generate() {
   var data = loadTimelineData();
   updateTimeline(data);
+  updateSvgSourceDisplay();
 }
 
 // Load timeline data as an object
@@ -103,6 +115,12 @@ function removeChildren(node) {
   while(node.firstChild) {
     node.removeChild(node.firstChild);
   }
+}
+
+// Update the SVG source display
+function updateSvgSourceDisplay() {
+  var svgSource = escapeHtml(document.getElementById('svgOutput').outerHTML);
+  document.getElementById('svgSource').innerHTML = svgSource;
 }
 
 // Update the timeline wrt the supplied data
