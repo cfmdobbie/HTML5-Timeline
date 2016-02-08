@@ -1,33 +1,7 @@
-// Entry point, called by button
-function generate() {
-  var data = loadTimelineData();
-  updateTimeline(data);
-}
-
-// Remove all children of the specified element
-function removeChildren(node) {
-  while(node.firstChild) {
-    node.removeChild(node.firstChild);
-  }
-}
-
-// Load timeline data as an object
-function loadTimelineData() {
-  var jsonSource = document.getElementById('jsonSource').value;
-  var obj = JSON.parse(jsonSource);
-  return obj;
-}
-
 // Clear the current SVG data
 function clearTimeline() {
   var svg = document.getElementById('svgOutput');
   removeChildren(svg);
-}
-
-// Update the timeline wrt the supplied data
-function updateTimeline(data) {
-  clearTimeline();
-  createTimeline(data);
 }
 
 // Update the SVG diagram with a new timeline based on the passed data
@@ -65,6 +39,19 @@ function createTimeline(data) {
   }
 }
 
+// Entry point, called by button
+function generate() {
+  var data = loadTimelineData();
+  updateTimeline(data);
+}
+
+// Load timeline data as an object
+function loadTimelineData() {
+  var jsonSource = document.getElementById('jsonSource').value;
+  var obj = JSON.parse(jsonSource);
+  return obj;
+}
+
 // Utility function to generate an SVG <line>
 function makeLine(x1, y1, x2, y2, color, lineWidth) {
   var e = document.createElementNS('http://www.w3.org/2000/svg','line');
@@ -75,5 +62,18 @@ function makeLine(x1, y1, x2, y2, color, lineWidth) {
   e.setAttribute('stroke', color);
   e.setAttribute('stroke-width', lineWidth);
   return e;
+}
+
+// Remove all children of the specified element
+function removeChildren(node) {
+  while(node.firstChild) {
+    node.removeChild(node.firstChild);
+  }
+}
+
+// Update the timeline wrt the supplied data
+function updateTimeline(data) {
+  clearTimeline();
+  createTimeline(data);
 }
 
