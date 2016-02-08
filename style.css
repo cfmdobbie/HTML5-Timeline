@@ -3,13 +3,13 @@
 }
 
 #jsonSource {
-  width: 400px;
+  width: 600px;
   height: 100px;
 }
 
 #svgSource {
   font-family: monospace;
-  width: 400px;
+  width: 600px;
   height: 200px;
   border: 1px solid black;
 }
