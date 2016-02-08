@@ -1,0 +1,19 @@
+* {
+  font-family: arial;
+}
+
+#jsonSource {
+  width: 400px;
+  height: 100px;
+}
+
+#svgSource {
+  font-family: monospace;
+  width: 400px;
+  height: 200px;
+  border: 1px solid black;
+}
+
+#svgOutput {
+  border: 1px solid black;
+}
