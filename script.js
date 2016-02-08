@@ -27,24 +27,53 @@ function clearTimeline() {
 // Update the timeline wrt the supplied data
 function updateTimeline(data) {
   clearTimeline();
-  generateTimeline(data);
+  createTimeline(data);
 }
 
-function generateTimeline(data) {
+// Update the SVG diagram with a new timeline based on the passed data
+function createTimeline(data) {
   var svg = document.getElementById('svgOutput');
   
   // Basic layout parameters
   var xStart = 50;
   var xEnd = 350;
+  var xRange = xEnd - xStart;
   var y = 100;
   
-  // Generate base timeline
-  var line = document.createElementNS('http://www.w3.org/2000/svg','line');
-  line.setAttribute('x1', xStart);
-  line.setAttribute('y1', y);
-  line.setAttribute('x2', xEnd);
-  line.setAttribute('y2', y);
-  line.setAttribute('stroke', data.lineColor);
-  line.setAttribute('stroke-width','2');
-  svg.appendChild(line);
+  // Determine time range
+  var startTime = Date.parse(data.start);
+  var endTime = Date.parse(data.end);
+  var timeRange = endTime - startTime;
+  
+  // Calculate event times
+  var numberOfEvents = data.events.length;
+  for (var i = 0 ; i < numberOfEvents ; i++) {
+    var time = Date.parse(data.events[i].date);
+    data.events[i].x = ((time - startTime) / timeRange) * xRange + xStart;
+  }
+  
+  // Draw base timeline
+  svg.appendChild(makeLine(xStart, y, xEnd, y, data.lineColor, 4));
+  
+  // Draw caps
+  svg.appendChild(makeLine(xStart, y - 10, xStart, y + 10, data.lineColor, 2));
+  svg.appendChild(makeLine(xEnd, y - 10, xEnd, y + 10, data.lineColor, 2));
+  
+  // Draw event ticks
+  for (var i = 0 ; i < numberOfEvents ; i++) {
+    svg.appendChild(makeLine(data.events[i].x, y - 10, data.events[i].x, y + 10, data.lineColor, 1));
+  }
 }
+
+// Utility function to generate an SVG <line>
+function makeLine(x1, y1, x2, y2, color, lineWidth) {
+  var e = document.createElementNS('http://www.w3.org/2000/svg','line');
+  e.setAttribute('x1', x1);
+  e.setAttribute('y1', y1);
+  e.setAttribute('x2', x2);
+  e.setAttribute('y2', y2);
+  e.setAttribute('stroke', color);
+  e.setAttribute('stroke-width', lineWidth);
+  return e;
+}
+
