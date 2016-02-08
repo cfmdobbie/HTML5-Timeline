@@ -1,9 +1,25 @@
+// Entry point, called by button
 function generate() {
-  
-  // Interpret JSON data as an object
+  var data = loadTimelineData();
+  updateTimeline(data);
+}
+
+// Remove all children of the specified element
+function removeChildren(node) {
+  while(node.firstChild) {
+    node.removeChild(node.firstChild);
+  }
+}
+
+// Load timeline data as an object
+function loadTimelineData() {
   var jsonSource = document.getElementById('jsonSource').value;
   var obj = JSON.parse(jsonSource);
-  
+  return obj;
+}
+
+// Update the timeline wrt the supplied data
+function updateTimeline(data) {
   // Get reference to the <svg> element
   var svg = document.getElementById('svgOutput');
   
@@ -20,10 +36,3 @@ function generate() {
   line.setAttribute('stroke-width','4');
   svg.appendChild(line);
 }
-
-function removeChildren(node) {
-  while(node.firstChild) {
-    node.removeChild(node.firstChild);
-  }
-}
-
