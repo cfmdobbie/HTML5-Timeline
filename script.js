@@ -18,21 +18,33 @@ function loadTimelineData() {
   return obj;
 }
 
+// Clear the current SVG data
+function clearTimeline() {
+  var svg = document.getElementById('svgOutput');
+  removeChildren(svg);
+}
+
 // Update the timeline wrt the supplied data
 function updateTimeline(data) {
-  // Get reference to the <svg> element
+  clearTimeline();
+  generateTimeline(data);
+}
+
+function generateTimeline(data) {
   var svg = document.getElementById('svgOutput');
   
-  // Clear previous SVG data
-  removeChildren(svg);
+  // Basic layout parameters
+  var xStart = 50;
+  var xEnd = 350;
+  var y = 100;
   
   // Generate base timeline
   var line = document.createElementNS('http://www.w3.org/2000/svg','line');
-  line.setAttribute('x1','50');
-  line.setAttribute('y1','100');
-  line.setAttribute('x2','350');
-  line.setAttribute('y2','100');
-  line.setAttribute('stroke','black');
-  line.setAttribute('stroke-width','4');
+  line.setAttribute('x1', xStart);
+  line.setAttribute('y1', y);
+  line.setAttribute('x2', xEnd);
+  line.setAttribute('y2', y);
+  line.setAttribute('stroke', data.lineColor);
+  line.setAttribute('stroke-width','2');
   svg.appendChild(line);
 }
