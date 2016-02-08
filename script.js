@@ -9,8 +9,8 @@ function createTimeline(data) {
   var svg = document.getElementById('svgOutput');
   
   // Basic layout parameters
-  var xStart = 50;
-  var xEnd = 350;
+  var xStart = 100;
+  var xEnd = 500;
   var xRange = xEnd - xStart;
   var y = 100;
   
@@ -37,6 +37,15 @@ function createTimeline(data) {
   for (var i = 0 ; i < numberOfEvents ; i++) {
     svg.appendChild(makeLine(data.events[i].x, y - 10, data.events[i].x, y + 10, data.lineColor, 1));
   }
+  
+  // Cap text
+  svg.appendChild(makeDateText(xStart, y + 20, data.textColor, data.start));
+  svg.appendChild(makeDateText(xEnd, y + 20, data.textColor, data.end));
+  // Event text
+  for (var i = 0 ; i < numberOfEvents ; i++) {
+    svg.appendChild(makeNameText(data.events[i].x, y - 10, data.textColor, data.events[i].name));
+    svg.appendChild(makeDateText(data.events[i].x, y + 20, data.textColor, data.events[i].date));
+  }
 }
 
 // Entry point, called by button
@@ -61,6 +70,31 @@ function makeLine(x1, y1, x2, y2, color, lineWidth) {
   e.setAttribute('y2', y2);
   e.setAttribute('stroke', color);
   e.setAttribute('stroke-width', lineWidth);
+  return e;
+}
+
+function makeDateText(x, y, color, text) {
+  var e = makeText(x, y, color, text);
+  e.setAttribute('transform', 'rotate(-45, ' + x + ', ' + y + ')');
+  e.setAttribute('text-anchor', 'end');
+  return e;
+}
+
+function makeNameText(x, y, color, text) {
+  var e = makeText(x, y, color, text);
+  e.setAttribute('transform', 'rotate(-45, ' + x + ', ' + y + ')');
+  return e;
+}
+
+// Utility function to generate an SVG <text>
+function makeText(x, y, color, text) {
+  var e = document.createElementNS('http://www.w3.org/2000/svg','text');
+  e.setAttribute('x', x);
+  e.setAttribute('y', y);
+  e.setAttribute('fill', color);
+  e.setAttribute('font-size', 14);
+  e.setAttribute('font-family', 'arial');
+  e.textContent = text;
   return e;
 }
 
