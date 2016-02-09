@@ -1,0 +1,46 @@
+HTML5-Timeline
+
+A simple HTML5 app designed by Charlie Dobbie in Feb 2016, and released under
+the MIT licence.
+
+This was developed as a very simple test of interpreting JSON data input via a
+form, and using it to generate SVG directly on the page.  Other functionality of
+note is extraction of SVG source and displaying via an HTML5 details/summary tag
+pair.
+
+Some example JSON data is as follows:
+
+    {
+      "lineColor": "black",
+      "textColor": "blue",
+      "start": "1990",
+      "end": "2020",
+      "events": [
+        {"date": "9 June 1993", "name": "Jurassic Park"},
+        {"date": "23 May 1997", "name": "The Lost World"},
+        {"date": "18 July 2001", "name": "Jurassic Park III"},
+        {"date": "12 June 2015", "name": "Jurassic World"}
+      ]
+    }
+
+Dates are interpreted via the built-in Date.parse() function, so can be provided
+in a range of different formats, depending on brower support.  The way the date
+calculations work, you can reverse the timeline simply by switching start and
+end dates, and the events will be positioned correctly.  No attempt is currently
+made to ensure all text remains entirely on the screen.
+
+This was a one-off test, so is not intended to be developed further.  However,
+if further development were performed, the following would be of value:
+
+* Error handling on receipt of malformed JSON
+* Error handling on invalid data types
+* Process SVG source to remove DOM id and add correct standalone namespace
+* Dynamic sizing to ensure text doesn't overlap or run off the edge
+* Better positioning of dates (extra fudged vertical offset due to baseline position
+* Pretty date formatting
+* Optional supression of cap date labels
+* Simple title
+* Automatically refresh SVG diagram as data is edited
+* Pretty output of SVG source
+* Direct download link for SVG diagram
+
