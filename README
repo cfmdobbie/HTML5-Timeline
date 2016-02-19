@@ -34,7 +34,6 @@ if further development were performed, the following would be of value:
 
 * Error handling on receipt of malformed JSON
 * Error handling on invalid data types
-* Process SVG source to remove DOM id and add correct standalone namespace
 * Dynamic sizing to ensure text doesn't overlap or run off the edge
 * Better positioning of dates (extra fudged vertical offset due to baseline position
 * Pretty date formatting
