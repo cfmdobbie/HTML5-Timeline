@@ -38,7 +38,6 @@ if further development were performed, the following would be of value:
 * Dynamic sizing to ensure text doesn't overlap or run off the edge
 * Better positioning of dates (extra fudged vertical offset due to baseline position
 * Pretty date formatting
-* Optional supression of cap date labels
 * Simple title
 * Automatically refresh SVG diagram as data is edited
 * Pretty output of SVG source
