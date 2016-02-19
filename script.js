@@ -31,7 +31,7 @@ function createTimeline(data) {
   // Calculate event times
   var numberOfEvents = data.events.length;
   for (var i = 0 ; i < numberOfEvents ; i++) {
-    var time = Date.parse(data.events[i].date);
+    var time = Date.parse(data.events[i].value);
     data.events[i].x = ((time - startTime) / timeRange) * TIMELINE_WIDTH + TIMELINE_MIN_X;
   }
   
@@ -58,7 +58,7 @@ function createTimeline(data) {
   for (var i = 0 ; i < numberOfEvents ; i++) {
     var eventColor = data.events[i].color ? data.events[i].color : data.textColor;
     svg.appendChild(makeNameText(data.events[i].x, TIMELINE_Y - 10, eventColor, data.events[i].name));
-    svg.appendChild(makeDateText(data.events[i].x, TIMELINE_Y + 20, eventColor, data.events[i].date));
+    svg.appendChild(makeDateText(data.events[i].x, TIMELINE_Y + 20, eventColor, data.events[i].value));
   }
 }
 

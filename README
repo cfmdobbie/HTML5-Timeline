@@ -16,10 +16,10 @@ Some example JSON data is as follows:
       "start": "1990",
       "end": "2020",
       "events": [
-        {"date": "9 June 1993", "name": "Jurassic Park"},
-        {"date": "23 May 1997", "name": "The Lost World"},
-        {"date": "18 July 2001", "name": "Jurassic Park III"},
-        {"date": "12 June 2015", "name": "Jurassic World"}
+        {"value": "9 June 1993", "name": "Jurassic Park"},
+        {"value": "23 May 1997", "name": "The Lost World"},
+        {"value": "18 July 2001", "name": "Jurassic Park III"},
+        {"value": "12 June 2015", "name": "Jurassic World"}
       ]
     }
 
