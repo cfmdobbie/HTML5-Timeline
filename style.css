@@ -7,6 +7,11 @@
   height: 100px;
 }
 
+/* Put a border around child of svgOutput - i.e. around the <svg> element. */
+#svgOutput * {
+  border: 1px solid black;
+}
+
 #svgSource {
   font-family: monospace;
   width: 600px;
@@ -15,6 +20,3 @@
   overflow: auto;
 }
 
-#svgOutput {
-  border: 1px solid black;
-}
