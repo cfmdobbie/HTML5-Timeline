@@ -7,17 +7,21 @@ function clearTimeline() {
 
 // Update the SVG diagram with a new timeline based on the passed data
 function createTimeline(data) {
+  var DIAGRAM_WIDTH = 600;
+  var DIAGRAM_HEIGHT = 200;
+  var MARGIN = 100;
+  
   var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-  svg.setAttribute('width', 600);
-  svg.setAttribute('height', 200);
+  svg.setAttribute('width', DIAGRAM_WIDTH);
+  svg.setAttribute('height', DIAGRAM_HEIGHT);
   document.getElementById('svgOutput').appendChild(svg);
-
+  
   // Basic layout parameters
-  var xStart = 100;
-  var xEnd = 500;
+  var xStart = MARGIN;
+  var xEnd = DIAGRAM_WIDTH - MARGIN;
   var xRange = xEnd - xStart;
-  var y = 100;
+  var y = DIAGRAM_HEIGHT / 2;
   
   // Determine time range
   var startTime = Date.parse(data.start);
