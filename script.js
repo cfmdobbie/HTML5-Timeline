@@ -52,17 +52,6 @@ function createTimeline(data) {
   }
 }
 
-// Make a string HTML-safe
-function escapeHtml(unsafe) {
-  var safe = unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-  return safe;
-}
-
 // Entry point, called by button
 function generate() {
   var data = loadTimelineData();
@@ -112,13 +101,6 @@ function makeText(x, y, color, text) {
   e.setAttribute('font-family', 'arial');
   e.textContent = text;
   return e;
-}
-
-// Remove all children of the specified element
-function removeChildren(node) {
-  while(node.firstChild) {
-    node.removeChild(node.firstChild);
-  }
 }
 
 // Update the SVG source display
