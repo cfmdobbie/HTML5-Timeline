@@ -48,8 +48,9 @@ function createTimeline(data) {
   }
   // Event text
   for (var i = 0 ; i < numberOfEvents ; i++) {
-    svg.appendChild(makeNameText(data.events[i].x, y - 10, data.textColor, data.events[i].name));
-    svg.appendChild(makeDateText(data.events[i].x, y + 20, data.textColor, data.events[i].date));
+    var eventColor = data.events[i].color ? data.events[i].color : data.textColor;
+    svg.appendChild(makeNameText(data.events[i].x, y - 10, eventColor, data.events[i].name));
+    svg.appendChild(makeDateText(data.events[i].x, y + 20, eventColor, data.events[i].date));
   }
 }
 
