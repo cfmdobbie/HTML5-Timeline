@@ -2,6 +2,16 @@
   font-family: arial;
 }
 
+#examples {
+  font-size: 8pt;
+}
+
+#examples span {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 #jsonSource {
   width: 600px;
   height: 100px;

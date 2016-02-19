@@ -125,6 +125,69 @@ function loadTimelineData() {
   return obj;
 }
 
+// Load some example JSON data
+function showExample(example) {
+  function getExample(example) {
+    if(example == 'jurassic') {
+      return `{
+  "lineColor": "black",
+  "textColor": "#bb0000",
+  "start": "9 June 1993",
+  "end": "12 June 2015",
+  "noStartLabel": true,
+  "noEndLabel": true,
+  "events": [
+    {"value": "9 June 1993", "name": "Jurassic Park"},
+    {"value": "23 May 1997", "name": "The Lost World"},
+    {"value": "18 July 2001", "name": "Jurassic Park III"},
+    {"value": "12 June 2015", "name": "Jurassic World"}
+  ]
+}`;
+    } else if(example == 'escape') {
+      return `{
+  "lineColor": "black",
+  "textColor": "black",
+  "valueType": "number",
+  "start": "0 km/s",
+  "end": "15 km/s",
+  "events": [
+    {"value": "4.25 km/s", "name": "Mercury", "color": "DimGrey"},
+    {"value": "10.36 km/s", "name": "Venus", "color": "DarkGoldenRod"},
+    {"value": "11.186 km/s", "name": "Earth", "color": "Green"},
+    {"value": "2.38 km/s", "name": "Moon", "color": "Grey"},
+    {"value": "5.027 km/s", "name": "Mars", "color": "FireBrick"}
+  ]
+}`;
+    } else if(example == 'presidents') {
+      return `{
+  "lineColor": "black",
+  "textColor": "grey",
+  "valueType": "number",
+  "start": "1953",
+  "end": "2016",
+  "noStartLabel": true,
+  "events": [
+    {"value": "1953", "name": "Dwight D. Eisenhower", "color": "red"},
+    {"value": "1961", "name": "John F. Kennedy", "color": "blue"},
+    {"value": "1963", "name": "Lyndon B. Johnson", "color": "blue"},
+    {"value": "1969", "name": "Richard Nixon", "color": "red"},
+    {"value": "1974", "name": "Gerald Ford", "color": "red"},
+    {"value": "1977", "name": "Jimmy Carter", "color": "blue"},
+    {"value": "1981", "name": "Ronald Reagan", "color": "red"},
+    {"value": "1989", "name": "George H. W. Bush", "color": "red"},
+    {"value": "1993", "name": "Bill Clinton", "color": "blue"},
+    {"value": "2001", "name": "George W. Bush", "color": "red"},
+    {"value": "2009", "name": "Barack Obama", "color": "blue"}
+  ]
+}`;
+    } else {
+      return "";
+    }
+  }
+  
+  document.getElementById('jsonSource').value = getExample(example);
+}
+
 // Update the SVG source display
 function updateSvgSourceDisplay() {
   var svgSource = escapeHtml(document.getElementById('svgOutput').innerHTML);
