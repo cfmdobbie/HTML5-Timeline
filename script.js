@@ -7,7 +7,7 @@ function clearTimeline() {
 
 // Creates a value normalizer to use for the specified data range.
 // Returned normalizer converts passed data into values between 0.0 to 1.0.
-function createNormalizer(start, end) {
+function createNormalizer(valueType, start, end) {
   // Date normalizer - treats values as valid Javascript Date strings
   function DateNormalizer(start, end) {
     // Low value
@@ -23,6 +23,31 @@ function createNormalizer(start, end) {
       return norm;
     };
   };
+  
+  // Number normalizer
+  function NumberNormalizer(start, end) {
+    // Start and range
+    this.startValue = parseFloat(start);
+    this.range = parseFloat(end) - this.startValue;
+    // Function to normalize the passed numeric value
+    this.normalize = function(raw) {
+      // Numeric value
+      var value = parseFloat(raw);
+      // Normalized wrt date range
+      var norm = (value - this.startValue) / this.range
+      return norm;
+    };
+  }
+  
+  switch(valueType) {
+    case "number":
+      // Explicitly a number
+      return new NumberNormalizer(start, end);
+    case "date":
+    default:
+      // Either explicitly or implicitly a date
+      return new DateNormalizer(start, end);
+  }
   
   return new DateNormalizer(start, end);
 }
@@ -46,7 +71,7 @@ function createTimeline(data) {
   var TIMELINE_Y = DIAGRAM_HEIGHT / 2;
   
   // Acquire a data normalizer
-  var normalizer = createNormalizer(data.start, data.end);
+  var normalizer = createNormalizer(data.valueType, data.start, data.end);
   
   // Calculate event times
   var numberOfEvents = data.events.length;
