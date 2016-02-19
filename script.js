@@ -2,6 +2,7 @@
 function clearTimeline() {
   var svg = document.getElementById('svgOutput');
   removeChildren(svg);
+  document.getElementById('svgSource').innerHTML = "No timeline generated!";
 }
 
 // Update the SVG diagram with a new timeline based on the passed data
