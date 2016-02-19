@@ -18,10 +18,10 @@ function createTimeline(data) {
   document.getElementById('svgOutput').appendChild(svg);
   
   // Basic layout parameters
-  var xStart = MARGIN;
-  var xEnd = DIAGRAM_WIDTH - MARGIN;
-  var xRange = xEnd - xStart;
-  var y = DIAGRAM_HEIGHT / 2;
+  var TIMELINE_MIN_X = MARGIN;
+  var TIMELINE_MAX_X = DIAGRAM_WIDTH - MARGIN;
+  var TIMELINE_WIDTH = TIMELINE_MAX_X - TIMELINE_MIN_X;
+  var TIMELINE_Y = DIAGRAM_HEIGHT / 2;
   
   // Determine time range
   var startTime = Date.parse(data.start);
@@ -32,33 +32,33 @@ function createTimeline(data) {
   var numberOfEvents = data.events.length;
   for (var i = 0 ; i < numberOfEvents ; i++) {
     var time = Date.parse(data.events[i].date);
-    data.events[i].x = ((time - startTime) / timeRange) * xRange + xStart;
+    data.events[i].x = ((time - startTime) / timeRange) * TIMELINE_WIDTH + TIMELINE_MIN_X;
   }
   
   // Draw base timeline
-  svg.appendChild(makeLine(xStart, y, xEnd, y, data.lineColor, 4));
+  svg.appendChild(makeLine(TIMELINE_MIN_X, TIMELINE_Y, TIMELINE_MAX_X, TIMELINE_Y, data.lineColor, 4));
   
   // Draw caps
-  svg.appendChild(makeLine(xStart, y - 10, xStart, y + 10, data.lineColor, 2));
-  svg.appendChild(makeLine(xEnd, y - 10, xEnd, y + 10, data.lineColor, 2));
+  svg.appendChild(makeLine(TIMELINE_MIN_X, TIMELINE_Y - 10, TIMELINE_MIN_X, TIMELINE_Y + 10, data.lineColor, 2));
+  svg.appendChild(makeLine(TIMELINE_MAX_X, TIMELINE_Y - 10, TIMELINE_MAX_X, TIMELINE_Y + 10, data.lineColor, 2));
   
   // Draw event ticks
   for (var i = 0 ; i < numberOfEvents ; i++) {
-    svg.appendChild(makeLine(data.events[i].x, y - 10, data.events[i].x, y + 10, data.lineColor, 1));
+    svg.appendChild(makeLine(data.events[i].x, TIMELINE_Y - 10, data.events[i].x, TIMELINE_Y + 10, data.lineColor, 1));
   }
   
   // Cap text
   if(typeof(data.noStartLabel) == "undefined" || !data.noStartLabel) {
-    svg.appendChild(makeDateText(xStart, y + 20, data.textColor, data.start));
+    svg.appendChild(makeDateText(TIMELINE_MIN_X, TIMELINE_Y + 20, data.textColor, data.start));
   }
   if(typeof(data.noEndLabel) == "undefined" || !data.noEndLabel) {
-    svg.appendChild(makeDateText(xEnd, y + 20, data.textColor, data.end));
+    svg.appendChild(makeDateText(TIMELINE_MAX_X, TIMELINE_Y + 20, data.textColor, data.end));
   }
   // Event text
   for (var i = 0 ; i < numberOfEvents ; i++) {
     var eventColor = data.events[i].color ? data.events[i].color : data.textColor;
-    svg.appendChild(makeNameText(data.events[i].x, y - 10, eventColor, data.events[i].name));
-    svg.appendChild(makeDateText(data.events[i].x, y + 20, eventColor, data.events[i].date));
+    svg.appendChild(makeNameText(data.events[i].x, TIMELINE_Y - 10, eventColor, data.events[i].name));
+    svg.appendChild(makeDateText(data.events[i].x, TIMELINE_Y + 20, eventColor, data.events[i].date));
   }
 }
 
