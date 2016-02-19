@@ -5,6 +5,28 @@ function clearTimeline() {
   document.getElementById('svgSource').innerHTML = "No timeline generated!";
 }
 
+// Creates a value normalizer to use for the specified data range.
+// Returned normalizer converts passed data into values between 0.0 to 1.0.
+function createNormalizer(start, end) {
+  // Date normalizer - treats values as valid Javascript Date strings
+  function DateNormalizer(start, end) {
+    // Low value
+    this.startValue = Date.parse(start);
+    // Range of values
+    this.range = Date.parse(end) - this.startValue;
+    // Function to normalize the passed date value
+    this.normalize = function(raw) {
+      // Date value
+      var value = Date.parse(raw);
+      // Normalized wrt date range
+      var norm = (value - this.startValue) / this.range
+      return norm;
+    };
+  };
+  
+  return new DateNormalizer(start, end);
+}
+
 // Update the SVG diagram with a new timeline based on the passed data
 function createTimeline(data) {
   var DIAGRAM_WIDTH = 600;
@@ -23,16 +45,18 @@ function createTimeline(data) {
   var TIMELINE_WIDTH = TIMELINE_MAX_X - TIMELINE_MIN_X;
   var TIMELINE_Y = DIAGRAM_HEIGHT / 2;
   
-  // Determine time range
-  var startTime = Date.parse(data.start);
-  var endTime = Date.parse(data.end);
-  var timeRange = endTime - startTime;
+  // Acquire a data normalizer
+  var normalizer = createNormalizer(data.start, data.end);
   
   // Calculate event times
   var numberOfEvents = data.events.length;
   for (var i = 0 ; i < numberOfEvents ; i++) {
-    var time = Date.parse(data.events[i].value);
-    data.events[i].x = ((time - startTime) / timeRange) * TIMELINE_WIDTH + TIMELINE_MIN_X;
+    // Normalized event value
+    var norm = normalizer.normalize(data.events[i].value);
+    // Calculated x-coordinate
+    var x = TIMELINE_MIN_X + (norm * TIMELINE_WIDTH);
+    // Stash x-coordinate in event
+    data.events[i].x = x;
   }
   
   // Draw base timeline
