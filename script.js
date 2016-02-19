@@ -39,8 +39,12 @@ function createTimeline(data) {
   }
   
   // Cap text
-  svg.appendChild(makeDateText(xStart, y + 20, data.textColor, data.start));
-  svg.appendChild(makeDateText(xEnd, y + 20, data.textColor, data.end));
+  if(typeof(data.noStartLabel) == "undefined" || !data.noStartLabel) {
+    svg.appendChild(makeDateText(xStart, y + 20, data.textColor, data.start));
+  }
+  if(typeof(data.noEndLabel) == "undefined" || !data.noEndLabel) {
+    svg.appendChild(makeDateText(xEnd, y + 20, data.textColor, data.end));
+  }
   // Event text
   for (var i = 0 ; i < numberOfEvents ; i++) {
     svg.appendChild(makeNameText(data.events[i].x, y - 10, data.textColor, data.events[i].name));
