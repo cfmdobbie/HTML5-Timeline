@@ -39,10 +39,38 @@ function createNormalizer(valueType, start, end) {
     };
   }
   
+  // BC/AD year normalizer
+  function BcadNormalizer(start, end) {
+    // Function to convert a string containing a BC or AD year into an integer AD year
+    function bcadToYear(text) {
+      var regex = /(\d+) ?(AD|BC)?/;
+      var result = text.match(regex);
+      var year = result[1];
+      if(result[2] == 'BC') {
+        year = 1 - year;
+      }
+      return year;
+    }
+    // Start and range
+    this.startValue = bcadToYear(start);
+    this.range = bcadToYear(end) - this.startValue;
+    // Function to normalize the passed BC/AD year
+    this.normalize = function(raw) {
+      // Numeric value
+      var value = bcadToYear(raw);
+      // Normalized wrt date range
+      var norm = (value - this.startValue) / this.range
+      return norm;
+    };
+  }
+  
   switch(valueType) {
     case "number":
       // Explicitly a number
       return new NumberNormalizer(start, end);
+    case "bcad":
+      // Explicitly a year of the form "NNNN", "NNNN BC" or "NNNN AD"
+      return new BcadNormalizer(start, end);
     case "date":
     default:
       // Either explicitly or implicitly a date
