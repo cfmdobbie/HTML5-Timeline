@@ -278,6 +278,40 @@ function showExample(example) {
     {"value": "1997", "name": "World Heritage site"}
   ]
 }`;
+    } else if(example == 'ice') {
+      return `{
+  "__comment__": "Example demonstrating event ranges",
+  "lineColor": "Black",
+  "textColor": "Silver",
+  "valueType": "number",
+  "start": "3000 mya",
+  "end": "0",
+  "noEndLabel": true,
+  "events": [
+    {"start": "2400 mya", "end": "2100 mya", "name": "Huronian", "color": "DeepSkyBlue"},
+    {"start": "850 mya", "end": "630 mya", "name": "Cryogenian", "color": "DeepSkyBlue"},
+    {"start": "460 mya", "end": "420 mya", "name": "Andean-Saharan", "color": "DeepSkyBlue"},
+    {"start": "360 mya", "end": "260 mya", "name": "Karoo", "color": "DeepSkyBlue"},
+    {"start": "2.58 mya", "end": "0", "name": "Pliocene-Quaternary", "color": "DeepSkyBlue"}
+  ]
+}`;
+    } else if(example == 'britain') {
+      return `{
+  "__comment__": "Example including overlapping event ranges",
+  "lineColor": "Black",
+  "textColor": "Black",
+  "valueType": "bcad",
+  "start": "10000 BC",
+  "end": "100 AD",
+  "noStartLabel": true,
+  "noEndLabel": true,
+  "events": [
+    {"start": "10000 BC", "end": "4500 BC", "name": "Mesolithic"},
+    {"start": "4000 BC", "end": "2000 BC", "name": "Neolithic"},
+    {"start": "2200 BC", "end": "750 BC", "name": "Bronze Age"},
+    {"start": "800 BC", "end": "100 AD", "name": "Iron Age"}
+  ]
+}`;
     } else {
       return "";
     }
