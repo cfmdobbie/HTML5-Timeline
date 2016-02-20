@@ -104,12 +104,27 @@ function createTimeline(data) {
   // Calculate event times
   var numberOfEvents = data.events.length;
   for (var i = 0 ; i < numberOfEvents ; i++) {
-    // Normalized event value
-    var norm = normalizer.normalize(data.events[i].value);
-    // Calculated x-coordinate
-    var x = TIMELINE_MIN_X + (norm * TIMELINE_WIDTH);
-    // Stash x-coordinate in event
-    data.events[i].x = x;
+    if(data.events[i].value) {
+      // Event with single value
+      // Normalized event value
+      var norm = normalizer.normalize(data.events[i].value);
+      // Calculated x-coordinate
+      var x = TIMELINE_MIN_X + (norm * TIMELINE_WIDTH);
+      // Stash x-coordinate in event
+      data.events[i].x = x;
+    } else {
+      // Event covering a range
+      // Normalized values
+      var start = normalizer.normalize(data.events[i].start);
+      var end = normalizer.normalize(data.events[i].end);
+      // Calculated x-coordinates
+      var startX = TIMELINE_MIN_X + (start * TIMELINE_WIDTH);
+      var endX = TIMELINE_MIN_X + (end * TIMELINE_WIDTH);
+      // Stash coordinates in event
+      data.events[i].startX = startX;
+      data.events[i].endX = endX;
+      data.events[i].midX = (startX + endX) / 2;
+    }
   }
   
   // Draw base timeline
@@ -121,7 +136,15 @@ function createTimeline(data) {
   
   // Draw event ticks
   for (var i = 0 ; i < numberOfEvents ; i++) {
-    svg.appendChild(makeLine(data.events[i].x, TIMELINE_Y - 10, data.events[i].x, TIMELINE_Y + 10, data.lineColor, 1));
+    if(data.events[i].x) {
+      // Single event
+      svg.appendChild(makeLine(data.events[i].x, TIMELINE_Y - 10, data.events[i].x, TIMELINE_Y + 10, data.lineColor, 1));
+    } else {
+      // Range
+      svg.appendChild(makeLine(data.events[i].startX, TIMELINE_Y - 10, data.events[i].startX, TIMELINE_Y + 10, data.lineColor, 1));
+      svg.appendChild(makeLine(data.events[i].endX, TIMELINE_Y - 10, data.events[i].endX, TIMELINE_Y + 10, data.lineColor, 1));
+      svg.appendChild(makeLine(data.events[i].startX, TIMELINE_Y - 10, data.events[i].endX, TIMELINE_Y - 10, data.lineColor, 1));
+    }
   }
   
   // Cap text
@@ -134,8 +157,16 @@ function createTimeline(data) {
   // Event text
   for (var i = 0 ; i < numberOfEvents ; i++) {
     var eventColor = data.events[i].color ? data.events[i].color : data.textColor;
-    svg.appendChild(makeNameText(data.events[i].x, TIMELINE_Y - 10, eventColor, data.events[i].name));
-    svg.appendChild(makeDateText(data.events[i].x, TIMELINE_Y + 20, eventColor, data.events[i].value));
+    if(data.events[i].x) {
+      // Single event
+      svg.appendChild(makeNameText(data.events[i].x, TIMELINE_Y - 10, eventColor, data.events[i].name));
+      svg.appendChild(makeDateText(data.events[i].x, TIMELINE_Y + 20, eventColor, data.events[i].value));
+    } else {
+      // Range
+      svg.appendChild(makeNameText(data.events[i].midX, TIMELINE_Y - 10, eventColor, data.events[i].name));
+      svg.appendChild(makeDateText(data.events[i].startX, TIMELINE_Y + 20, eventColor, data.events[i].start));
+      svg.appendChild(makeDateText(data.events[i].endX, TIMELINE_Y + 20, eventColor, data.events[i].end));
+    }
   }
 }
 
