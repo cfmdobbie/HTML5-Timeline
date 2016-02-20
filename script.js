@@ -208,6 +208,23 @@ function showExample(example) {
     {"value": "2009", "name": "Barack Obama", "color": "blue"}
   ]
 }`;
+    } else if(example == 'life') {
+      return `{
+  "__comment__": "Example demonstrating reversed timeline and number truncation",
+  "lineColor": "black",
+  "textColor": "black",
+  "valueType": "number",
+  "start": "13820 mya",
+  "end": "0",
+  "noStartLabel": true,
+  "noEndLabel": true,
+  "events": [
+    {"value": "13820 mya", "name": "Big Bang"},
+    {"value": "4540 mya", "name": "Earth Forms"},
+    {"value": "3500 mya", "name": "Earliest Life"},
+    {"value": "225 mya", "name": "Earliest Mammals"}
+  ]
+}`;
     } else {
       return "";
     }
