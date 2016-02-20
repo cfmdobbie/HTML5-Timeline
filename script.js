@@ -158,6 +158,7 @@ function showExample(example) {
   function getExample(example) {
     if(example == 'jurassic') {
       return `{
+  "__comment__": "Example demonstrating full date display and cap label suppression",
   "lineColor": "black",
   "textColor": "#bb0000",
   "start": "9 June 1993",
@@ -173,6 +174,7 @@ function showExample(example) {
 }`;
     } else if(example == 'escape') {
       return `{
+  "__comment__": "Example demonstrating SVG color names, floating-point numbers and number truncation",
   "lineColor": "black",
   "textColor": "black",
   "valueType": "number",
@@ -188,6 +190,7 @@ function showExample(example) {
 }`;
     } else if(example == 'presidents') {
       return `{
+  "__comment__": "Example demonstrating handling years as numbers, event colors and cap date suppression",
   "lineColor": "black",
   "textColor": "grey",
   "valueType": "number",
@@ -223,6 +226,25 @@ function showExample(example) {
     {"value": "4540 mya", "name": "Earth Forms"},
     {"value": "3500 mya", "name": "Earliest Life"},
     {"value": "225 mya", "name": "Earliest Mammals"}
+  ]
+}`;
+    } else if(example == 'pompeii') {
+      return `{
+  "__comment__": "Example demonstrating BC/AD years",
+  "lineColor": "Maroon",
+  "textColor": "Black",
+  "valueType": "bcad",
+  "start": "650 BC",
+  "end": "2016 AD",
+  "noStartLabel": true,
+  "noEndLabel": true,
+  "events": [
+    {"value": "650 BC", "name": "Founded"},
+    {"value": "80 BC", "name": "Surrender to Rome"},
+    {"value": "79 AD", "name": "Buried by Ash"},
+    {"value": "1599", "name": "Rediscovery"},
+    {"value": "1749", "name": " Start of Excavation"},
+    {"value": "1997", "name": "World Heritage site"}
   ]
 }`;
     } else {
