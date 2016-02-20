@@ -23,22 +23,27 @@ Some example JSON data is as follows:
       ]
     }
 
-Dates are interpreted via the built-in Date.parse() function, so can be provided
-in a range of different formats, depending on brower support.  The way the date
+Data can be supplied in a number of different styles, including dates, years
+including BC/AD designations, and bare or sufficed numbers.  Dates are
+interpreted via the built-in Date.parse() function, so can be provided in a
+range of different formats, depending on brower support.  The way the
 calculations work, you can reverse the timeline simply by switching start and
 end dates, and the events will be positioned correctly.  No attempt is currently
 made to ensure all text remains entirely on the screen.
 
-This was a one-off test, so is not intended to be developed further.  However,
-if further development were performed, the following would be of value:
+This application was expected to be a one-off test and is not intended to be
+developed much further.  However, if further development were performed, the
+following might be of value:
 
 * Error handling on receipt of malformed JSON
 * Error handling on invalid data types
 * Dynamic sizing to ensure text doesn't overlap or run off the edge
 * Better positioning of dates (extra fudged vertical offset due to baseline position
-* Pretty date formatting
+* Pretty date formatting; alternative value and display data
 * Simple title
 * Automatically refresh SVG diagram as data is edited
 * Pretty output of SVG source
 * Direct download link for SVG diagram
+* Handle correctly-formatted AD dates (currently only allows "NNNN AD")
+* Events covering ranges of dates
 
